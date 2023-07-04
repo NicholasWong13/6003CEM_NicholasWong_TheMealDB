@@ -17,7 +17,7 @@ https://www.themealdb.com/
 <br>
 
 a) **React (Front-End)**
-Run npm install to retrieve the node modules
+-> Run npm install to retrieve the node modules
 
 Deployed in Vercel Server https://6003-cem-nicholas-wong-the-meal-db.vercel.app/ 
 
