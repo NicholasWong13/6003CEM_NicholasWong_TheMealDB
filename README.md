@@ -11,13 +11,16 @@
 
 A recipe app that retrieves the recipe of various dishes from TheMealDB API.
 
-a) React (Front-End)
+## The Meal DB API
+https://www.themealdb.com/
+
+a) **React (Front-End)**
 Run npm install to retrieve the node modules
 
 Deployed in Vercel Server https://6003-cem-nicholas-wong-the-meal-db.vercel.app/ 
 
 
-b) Express (Back-End)
+b) **Express (Back-End)**
 Install the packages
 
 1. npm install axios
