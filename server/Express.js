@@ -235,7 +235,12 @@ app.post('/deleteMeals', (req, res) => {
       console.error(err);
       return res.status(500).send("An error occurred while deleting the meal.");
     }
-    res.send(`${title} deleted<br><br><button onclick="goBack()">Go Back</button>`);
+    res.send(`${title} deleted<br><br><button onclick="goBack()">Go Back</button>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>`);
   });
 });
 
