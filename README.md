@@ -4,6 +4,7 @@
 <h1 align="center">Meal Time</h1>
 <p align="center">
    <img src="https://forthebadge.com/images/badges/made-with-javascript.svg" />
+   <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white"/>
 </p>
 
 ## About The Project
@@ -27,4 +28,5 @@ Install the packages
 
 ## Technologies Used
 <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"/>
+<img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
 
