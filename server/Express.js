@@ -35,24 +35,23 @@ const htmlLayout = `
   <!DOCTYPE html>
   <html>
   <head>
-    <title>Meals - RESTful API</title>
+    <title>Meal Time - RESTful API</title>
     <style>
       body {
         font-family: Arial, sans-serif;
         padding: 20px;
+        background-color: #9A7B4F;
       }
 
       h1 {
-        margin-bottom: 20px;
-        text-align: center;
-        text-transform: uppercase;
-        color: #4CAF50;
-        text-shadow: 2px 2px 5px #30d5c8;
+        color: #652A0E;
+        font-family: verdana;
+        font-size: 200%;
+        text-align: center
       }
 
       h2 {
         margin-top: 30px;
-        text-shadow: 2px 2px 5px red;
       }
 
       form {
@@ -124,7 +123,7 @@ const htmlLayout = `
         text-decoration: none;
       }
       .button {
-        background-color: #424ef5;
+        background-color: #652A0E;
         border: none;
         color: white;
         padding: 30px 52px;
@@ -143,8 +142,7 @@ const htmlLayout = `
   </head>
   <body>
     <div class="container">
-      <h1>Meals - RESTful API</h1>
-
+      <h1>Meal Time - RESTful API</h1>
       <div class="meals-section">
         <h2>Add Meals</h2>
         <form action="/addMeals" method="POST">
@@ -166,51 +164,6 @@ const htmlLayout = `
           <input type="submit" class="button" value="Delete Meals">
         </form>
       </div>
-
-      <div class="meals-section">
-        <h2>Update Meals</h2>
-        <form action="/updateMeals" method="GET">
-        <label for="id">Meal ID:</label>
-        <input type="text" name="id" id="id" required><br>
-        <label for="title">Name:</label>
-        <input type="text" name="title" id="title" required><br>
-        <label for="url">Category:</label>
-        <input type="text" name="category" id="category" required><br>
-        <input type="submit" class="button" value="Update Meals">
-        </form>
-      </div>
-
-          <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Description</th>
-          <th>URL</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Example meal row -->
-        <tr>
-          <td>Meal Title</td>
-          <td>Meal Description</td>
-          <td>Meal URL</td>
-          <td>
-            <button onclick="editMeal('mealId')">Edit</button>
-          </td>
-        </tr>
-        <!-- Add more meal rows dynamically -->
-      </tbody>
-    </table>
-
-    <!-- Update form -->
-    <form id="updateForm" style="display: none;">
-      <input type="text" id="updateTitle" placeholder="Title">
-      <input type="text" id="updateDescription" placeholder="Description">
-      <input type="text" id="updateUrl" placeholder="URL">
-      <button type="submit">Update</button>
-      <button type="button" onclick="cancelUpdate()">Cancel</button>
-    </form>
 
       <div class="meals-section">
         <h2>Display All Meals</h2>
@@ -273,61 +226,23 @@ app.post('/addMeals', (req, res) => {
     });
 });
 
-// Update Meals
-app.put('/meals/:id', (req, res) => {
+// Delete Meals
+app.delete('/deleteMeals/:id', (req, res) => {
   const mealId = req.params.id;
-  const { title, description, url } = req.body;
 
-  // Find the meal in the database by its ID and update its fields
-  Meal.findByIdAndUpdate(
-    mealId,
-    { title, description, url },
-    { new: true }
-  )
-    .then(updatedMeal => {
-      if (!updatedMeal) {
-        // If the meal with the specified ID doesn't exist, return an error response
+  Meal.findByIdAndDelete(mealId)
+    .then(deletedMeal => {
+      if (!deletedMeal) {
         return res.status(404).json({ error: 'Meal not found' });
       }
 
-      // Return a success response with the updated meal
-      res.json(updatedMeal);
+      res.json({ message: 'Meal deleted successfully' });
     })
     .catch(error => {
-      // If an error occurs, return an error response
-      res.status(500).json({ error: 'An error occurred while updating the meal' });
+      res.status(500).json({ error: 'An error occurred while deleting the meal' });
     });
 });
 
-// Delete Meals
-app.post('/deleteMeals', (req, res) => {
-  const { mealId } = req.body;
-
-  Meal.findByIdAndDelete(mealId)
-    .then(() => {
-      res.send(`
-        <h1>Meal deleted successfully</h1>
-        <button onclick="goBack()">Go Back</button>
-        <script>
-          function goBack() {
-            window.history.back();
-          }
-        </script>
-      `);
-    })
-    .catch(error => {
-      console.error("Error: ", error);
-      res.send(`
-        <h1>An error occurred while deleting the meal</h1>
-        <button onclick="goBack()">Go Back</button>
-        <script>
-          function goBack() {
-            window.history.back();
-          }
-        </script>
-      `);
-    });
-});
 
 // Render HTML layout
 app.get('/', (req, res) => {
