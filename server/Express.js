@@ -227,22 +227,17 @@ app.post('/addMeals', (req, res) => {
 });
 
 // Delete Meals
-app.delete('/deleteMeals/:id', (req, res) => {
-  const mealId = req.params.id;
-
-  Meal.findByIdAndDelete(mealId)
-    .then(deletedMeal => {
-      if (!deletedMeal) {
-        return res.status(404).json({ error: 'Meal not found' });
-      }
-
-      res.json({ message: 'Meal deleted successfully' });
-    })
-    .catch(error => {
-      res.status(500).json({ error: 'An error occurred while deleting the meal' });
-    });
+app.post('/deleteMeals', (req, res) => {
+  const title = req.body.title;
+  console.log(title);
+  Record.deleteOne({ mealsStrMeal: title }, function (err) {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("An error occurred while deleting the meal.");
+    }
+    res.send(`${title} deleted<br><br><button onclick="goBack()">Go Back</button>`);
+  });
 });
-
 
 // Render HTML layout
 app.get('/', (req, res) => {
